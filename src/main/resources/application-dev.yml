@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://iden-it.cfu7vp0r2pen.ap-northeast-2.rds.amazonaws.com:5432/dev
+    url:
     driver-class-name: org.postgresql.Driver
-    username: idenit
-    password: chlgytjr0421!
+    username:
+    password:
 
   jpa:
     open-in-view: true

@@ -1,9 +1,9 @@
 spring:
   datasource:
+    url:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/{{table-name}}?serverTimezone=Asia/Seoul
-    username: username
-    password: password
+    username:
+    password:
 
   jpa:
     open-in-view: true
