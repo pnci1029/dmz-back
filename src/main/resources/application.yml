@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    include: dev
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+logging:
+  level:
+    com:
+      amazons:
+        util:
+          EC2MetadataUtils: error
+        internal:
+          InstanceMetadataServiceResourceFetcher: error

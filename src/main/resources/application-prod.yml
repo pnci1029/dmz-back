@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/{{table-name}}?serverTimezone=Asia/Seoul
+    username: username
+    password: password
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: none # fixed
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+        default_batch_fetch_size: 1000
+    defer-datasource-initialization: true
