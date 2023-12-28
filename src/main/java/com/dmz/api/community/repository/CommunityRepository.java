@@ -1,14 +1,12 @@
-package com.dmz.api.member.repository;
-
-import java.util.Optional;
+package com.dmz.api.community.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.dmz.api.member.domain.Member;
+import com.dmz.api.community.domain.Community;
 
 /**
- * packageName    : com.dmz.api.member.repository
- * fileName       : MemberRepository
+ * packageName    : com.dmz.api.community.repository
+ * fileName       : CommunityRepository
  * author         : MinKyu Park
  * date           : 2023-12-28
  * description    :
@@ -17,6 +15,5 @@ import com.dmz.api.member.domain.Member;
  * -----------------------------------------------------------
  * 2023-12-28        MinKyu Park       최초 생성
  */
-public interface MemberRepository extends JpaRepository<Member, Long> {
-	Optional<Member> findByProviderId(String providerId);
+public interface CommunityRepository extends JpaRepository<Community, Long> {
 }

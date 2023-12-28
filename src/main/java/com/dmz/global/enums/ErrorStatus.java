@@ -8,7 +8,7 @@ import lombok.Getter;
  * fileName       : ErrorStatus
  * author         : Jihun Kim
  * date           : 10/10/23
- * description    : 
+ * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
@@ -18,6 +18,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorStatus {
 
+	N01("데이터를 찾을수 없음"),
 	P01("파라미터 유효성 검사 실패"),
 	T01("토큰 유효성 검증 실패"),
 	A01("권한이 없음"),

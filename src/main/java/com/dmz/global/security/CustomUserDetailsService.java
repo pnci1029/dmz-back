@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.dmz.api.member.domain.Member;
+import com.dmz.api.member.exception.MemberNotFoundException;
 import com.dmz.api.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,15 +36,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	/**
 	 * 회원 로그인
 	 *
-	 * @param username the username identifying the user whose data is required.
+	 * @param providerId the username identifying the user whose data is required.
+	 *
 	 * @return 회원정보
+	 *
 	 * @throws UsernameNotFoundException UsernameNotFoundException
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String providerId) {
 
-		Member member = memberRepository.findById(username)
-			.orElseThrow(() -> new UsernameNotFoundException("로그인 실패"));
+		Member member = memberRepository.findByProviderId(providerId).orElseThrow(MemberNotFoundException::new);
 
 		return createUserDetails(member);
 	}
@@ -52,15 +54,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	 * 회원 정보 생성
 	 *
 	 * @param member 로그인 응답 모델
+	 *
 	 * @return 회원 정보
 	 */
 	private UserDetails createUserDetails(Member member) {
 
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + member.getRole().getValue());
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_MEMBER");
 
 		return new User(
 			String.valueOf(member.getId()),
-			member.getPassword(),
+			"asd314q35aw34r1d523aws14df32q155r241q5213wred12q3w1rde3q53r541q523r1523q1wr",
 			Collections.singleton(grantedAuthority)
 		);
 	}

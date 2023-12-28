@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dmz.api.auth.request.JoinRequest;
 import com.dmz.api.auth.request.LoginRequest;
-import com.dmz.api.member.domain.Member;
 import com.dmz.api.member.repository.MemberRepository;
 import com.dmz.global.jwt.JwtProvider;
 import com.dmz.global.jwt.Token;
@@ -46,9 +45,6 @@ public class AuthService {
 	@Transactional
 	public void signup(JoinRequest joinRequest) {
 
-		Member member = Member.tojoinMember(joinRequest);
-
-		memberRepository.save(member);
 	}
 
 	/**

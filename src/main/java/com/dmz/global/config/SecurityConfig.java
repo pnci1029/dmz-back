@@ -5,9 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,15 +19,15 @@ import com.dmz.global.jwt.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 
 /**
- * packageName    : com.idenit.global.config
+ * packageName    : om.dmz.global.config
  * fileName       : SecurityConfig
- * author         : Hyuk Kim
- * date           : 2023-09-07
+ * author         : Minkyu Park
+ * date           : 2023-12-28
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2023-09-07        Hyuk Kim       최초 생성
+ * 2023-09-07        Minkyu Park       최초 생성
  */
 @Configuration
 @EnableWebSecurity
@@ -43,6 +42,9 @@ public class SecurityConfig {
 	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	// private final SuccessHandler successHandler;
+	// private final FailureHandler failureHandler;
+
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -51,24 +53,35 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
 		http
-			.csrf(CsrfConfigurer::disable)
-			.httpBasic(HttpBasicConfigurer::disable)
+			.csrf(
+				AbstractHttpConfigurer::disable
+			)
 			.cors(cors -> cors
 				.configurationSource(corsFilter.corsConfigurationSource())
 			)
-			.sessionManagement(session -> session
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.headers(
+				(headerConfig) ->
+					headerConfig.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
 			)
-			.exceptionHandling(exception -> exception
-				.accessDeniedHandler(jwtAccessDeniedHandler)
-				.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+			.authorizeHttpRequests((authorizeRequests) ->
+				authorizeRequests
+					// .requestMatchers(PathRequest.toH2Console()).permitAll()
+					.anyRequest().permitAll()
 			)
-			.authorizeHttpRequests(request -> request
-				.anyRequest()
-				.permitAll()
+			.exceptionHandling((exceptionConfig) ->
+				exceptionConfig
+					.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+					.accessDeniedHandler(jwtAccessDeniedHandler)
 			)
-			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+			// .oauth2Login(oauth2LoginConfigurer -> oauth2LoginConfigurer
+			// 	.userInfoEndpoint(service -> service.userService(oAuth2UserService))
+			// 	.successHandler(successHandler)
+			// 	.failureHandler(failureHandler)
+			// )
+		;
 
 		return http.build();
 	}

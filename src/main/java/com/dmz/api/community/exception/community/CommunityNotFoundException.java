@@ -1,13 +1,13 @@
-package com.dmz.api.member.exception;
-
-import static com.dmz.global.enums.ErrorStatus.*;
+package com.dmz.api.community.exception.community;
 
 import com.dmz.global.enums.ErrorStatus;
 import com.dmz.global.exception.GlobalException;
 
+import lombok.Getter;
+
 /**
- * packageName    : com.dmz.api.member.exception
- * fileName       : MemberNotFoundException
+ * packageName    : com.dmz.api.community.exception.community
+ * fileName       : CommunityNotFoundException
  * author         : MinKyu Park
  * date           : 2023-12-28
  * description    :
@@ -16,14 +16,15 @@ import com.dmz.global.exception.GlobalException;
  * -----------------------------------------------------------
  * 2023-12-28        MinKyu Park       최초 생성
  */
-public class MemberNotFoundException extends GlobalException {
+@Getter
+public class CommunityNotFoundException extends GlobalException {
 
-	public MemberNotFoundException() {
-		super("회원 정보를 찾을 수 없습니다.");
+	protected CommunityNotFoundException() {
+		super("게시물을 찾을 수 없습니다.");
 	}
 
 	@Override
 	public ErrorStatus code() {
-		return N01;
+		return ErrorStatus.N01;
 	}
 }
