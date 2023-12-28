@@ -64,4 +64,6 @@ public class Community extends BaseTime {
 	@Column(nullable = false, length = 500)
 	private String content;
 
+//	TODO : 모집마감일 , 시작일 , 마감일 , 조회수 , 진행방식(온,오프라인)
+
 }

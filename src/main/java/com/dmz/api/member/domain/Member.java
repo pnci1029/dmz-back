@@ -54,6 +54,8 @@ public class Member extends BaseTime {
 	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
 	private List<Reply> replyList;
 
+	//TODO : 프로필이미지
+
 	@Builder
 	public Member(String nickname, String providerId) {
 		this.nickname = nickname;
