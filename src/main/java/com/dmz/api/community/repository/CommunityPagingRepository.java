@@ -1,6 +1,7 @@
 package com.dmz.api.community.repository;
 
 import static com.dmz.api.community.domain.QCommunity.*;
+import static com.dmz.api.community.domain.QTechStack.*;
 
 import java.util.List;
 
@@ -9,9 +10,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import com.dmz.api.community.domain.QTechStack;
 import com.dmz.api.community.dto.request.CommunitySearch;
 import com.dmz.api.community.dto.response.CommunityResponse;
 import com.dmz.api.community.dto.response.QCommunityResponse;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -37,8 +41,7 @@ public class CommunityPagingRepository {
 				community.id,
 				community.title,
 				community.content,
-				community.type,
-				community.techStackList
+				community.type
 			)).from(community)
 			// .join(community.techStackList, techStack)
 			.offset(pageable.getOffset())

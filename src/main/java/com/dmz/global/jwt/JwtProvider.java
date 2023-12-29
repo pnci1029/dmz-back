@@ -69,7 +69,7 @@ public class JwtProvider {
 			.compact();
 
 		return Token.builder()
-			.accessToken(BEARER_PREFIX + accessToken)
+			.accessToken(accessToken)
 			.expiresIn(tokenExpiresIn.getTime())
 			.build();
 	}

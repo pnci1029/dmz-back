@@ -36,15 +36,14 @@ public class CommunityResponse {
 	@Schema(example = "STUDY", description = "STUDY:스터디, PROJECT:프로젝트, MENTORING:멘토링")
 	private CommunityType type;
 
-	@Schema(type = "array", example = "[\"JAVA\", \"REACT\"]", description = "기술스택 목록")
-	private List<TechStack> techList;
+	// @Schema(type = "array", example = "[\"JAVA\", \"REACT\"]", description = "기술스택 목록")
+	// private List<TechStack> techList;
 
 	@QueryProjection
-	public CommunityResponse(Long id, String title, String content, CommunityType type, List<TechStack> techList) {
+	public CommunityResponse(Long id, String title, String content, CommunityType type) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.type = type;
-		this.techList = techList;
 	}
 }

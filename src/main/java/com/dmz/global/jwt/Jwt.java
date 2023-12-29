@@ -23,7 +23,7 @@ public class Jwt {
 	 *
 	 * @return member_pk
 	 */
-	public static String getId() {
+	public static Long getId() {
 
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -31,7 +31,7 @@ public class Jwt {
 			throw new UnAuthorized();
 		}
 
-		return authentication.getName();
+		return Long.valueOf(authentication.getName());
 	}
 
 	public static String getNonId() {

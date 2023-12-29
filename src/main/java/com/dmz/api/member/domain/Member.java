@@ -40,6 +40,12 @@ public class Member extends BaseTime {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Comment("이메일")
+	@Column(nullable = false)
+	private String email;
+
+	private String password;
+
 	@Comment("닉네임")
 	@Column(nullable = false)
 	private String nickname;
@@ -54,12 +60,15 @@ public class Member extends BaseTime {
 	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
 	private List<Reply> replyList;
 
-	//TODO : 프로필이미지
+	@Comment("프로필 이미지")
+	private String profile;
 
 	@Builder
-	public Member(String nickname, String providerId) {
+	public Member(String email, String nickname, String providerId, String profile,String password) {
+		this.email = email;
 		this.nickname = nickname;
 		this.providerId = providerId;
+		this.profile = profile;
+		this.password = password;
 	}
-
 }

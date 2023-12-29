@@ -1,10 +1,12 @@
 package com.dmz.api.community.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.annotations.Comment;
 
 import com.dmz.api.community.enums.CommunityType;
+import com.dmz.api.community.enums.Process;
 import com.dmz.api.member.domain.Member;
 import com.dmz.global.entity.BaseTime;
 
@@ -19,6 +21,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -64,6 +67,40 @@ public class Community extends BaseTime {
 	@Column(nullable = false, length = 500)
 	private String content;
 
-//	TODO : 모집마감일 , 시작일 , 마감일 , 조회수 , 진행방식(온,오프라인)
+	@Comment("모집 마감일")
+	@Column(nullable = false)
+	private LocalDate closingDate;
 
+	@Comment("시작일")
+	@Column(nullable = false)
+	private LocalDate startDate;
+
+	@Comment("마감일")
+	@Column(nullable = false)
+	private LocalDate endDate;
+
+	@Comment("조회수")
+	private Long viewCount;
+
+	@Comment("진행방식")
+	@Enumerated(EnumType.STRING)
+	private Process process;
+
+	@Builder
+	public Community(Member member, List<TechStack> techStackList, List<Reply> replyList, String title,
+		CommunityType type,
+		String content, LocalDate closingDate, LocalDate startDate, LocalDate endDate, Long viewCount,
+		Process process) {
+		this.member = member;
+		this.techStackList = techStackList;
+		this.replyList = replyList;
+		this.title = title;
+		this.type = type;
+		this.content = content;
+		this.closingDate = closingDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.viewCount = viewCount;
+		this.process = process;
+	}
 }

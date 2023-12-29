@@ -47,7 +47,8 @@ public class TechStack {
 	private Tech tech;
 
 	@Builder
-	public TechStack(Tech tech) {
+	public TechStack(Community community, Tech tech) {
+		this.community = community;
 		this.tech = tech;
 	}
 }

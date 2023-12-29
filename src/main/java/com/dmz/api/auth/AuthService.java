@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dmz.api.auth.request.JoinRequest;
 import com.dmz.api.auth.request.LoginRequest;
+import com.dmz.api.member.domain.Member;
 import com.dmz.api.member.repository.MemberRepository;
 import com.dmz.global.jwt.JwtProvider;
 import com.dmz.global.jwt.Token;
+import com.dmz.global.utils.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,7 +46,13 @@ public class AuthService {
 	 */
 	@Transactional
 	public void signup(JoinRequest joinRequest) {
-
+		Member build = Member.builder()
+			.providerId(joinRequest.getProviderId())
+			.email(joinRequest.getEmail())
+			.nickname(joinRequest.getNickname())
+			.password(PasswordEncoder.encrypt(joinRequest.getPassword()))
+			.build();
+		memberRepository.save(build);
 	}
 
 	/**

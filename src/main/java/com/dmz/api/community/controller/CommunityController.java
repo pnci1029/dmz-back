@@ -1,12 +1,16 @@
 package com.dmz.api.community.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dmz.api.community.dto.request.CommunityInsertRequest;
 import com.dmz.api.community.dto.request.CommunitySearch;
 import com.dmz.api.community.dto.response.CommunityResponse;
 import com.dmz.api.community.service.CommunityService;
+import com.dmz.global.jwt.Jwt;
 import com.dmz.global.utils.Response;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,11 +40,18 @@ public class CommunityController {
 	private final CommunityService communityService;
 
 	@GetMapping
-	@Operation(summary = "커뮤니티 조회", description = "메서드에 대한 설명")
+	@Operation(summary = "게시물 조회", description = "메서드에 대한 설명")
 	@ApiResponse(responseCode = "200", description = "", content = @Content(schema = @Schema(implementation = CommunityResponse.class)))
 	public Response<?> getCommunityList(CommunitySearch search) {
 
 		return communityService.getCommunityList(search);
 	}
 
+	@PostMapping
+	@Operation(summary = "게시물 등록", description = "")
+	@ApiResponse(responseCode = "200", description = "")
+	public Response<?> addCommunity(@RequestBody CommunityInsertRequest request) {
+
+		return communityService.addCommunity(request, Jwt.getId());
+	}
 }

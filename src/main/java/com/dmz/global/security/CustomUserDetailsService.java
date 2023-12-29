@@ -43,9 +43,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	 * @throws UsernameNotFoundException UsernameNotFoundException
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String providerId) {
+	public UserDetails loadUserByUsername(String email) {
 
-		Member member = memberRepository.findByProviderId(providerId).orElseThrow(MemberNotFoundException::new);
+		Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
 
 		return createUserDetails(member);
 	}
@@ -63,7 +63,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		return new User(
 			String.valueOf(member.getId()),
-			"asd314q35aw34r1d523aws14df32q155r241q5213wred12q3w1rde3q53r541q523r1523q1wr",
+			member.getPassword(),
 			Collections.singleton(grantedAuthority)
 		);
 	}
