@@ -54,6 +54,9 @@ public class Community extends BaseTime {
 	@OneToMany(mappedBy = "community")
 	private List<Reply> replyList;
 
+	@OneToMany(mappedBy = "community")
+	private List<TechPosition> techPositionList;
+
 	@Comment("제목")
 	@Column(nullable = false, length = 30)
 	private String title;
@@ -87,13 +90,13 @@ public class Community extends BaseTime {
 	private Process process;
 
 	@Builder
-	public Community(Member member, List<TechStack> techStackList, List<Reply> replyList, String title,
-		CommunityType type,
-		String content, LocalDate closingDate, LocalDate startDate, LocalDate endDate, Long viewCount,
-		Process process) {
+	public Community(Member member, List<TechStack> techStackList, List<Reply> replyList,
+		List<TechPosition> techPositionList, String title, CommunityType type, String content, LocalDate closingDate,
+		LocalDate startDate, LocalDate endDate, Long viewCount, Process process) {
 		this.member = member;
 		this.techStackList = techStackList;
 		this.replyList = replyList;
+		this.techPositionList = techPositionList;
 		this.title = title;
 		this.type = type;
 		this.content = content;

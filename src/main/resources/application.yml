@@ -1,9 +1,13 @@
 server:
   port: 8080
 
+jasypt:
+  encryptor:
+    password:
+
 spring:
   profiles:
-    include: dev
+    include: local , secret
 
   servlet:
     multipart:
@@ -18,3 +22,4 @@ logging:
           EC2MetadataUtils: error
         internal:
           InstanceMetadataServiceResourceFetcher: error
+

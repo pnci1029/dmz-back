@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.dmz.api.community.domain.Community;
 import com.dmz.api.community.enums.CommunityType;
+import com.dmz.api.community.enums.Position;
 import com.dmz.api.community.enums.Process;
 import com.dmz.api.community.enums.Tech;
 import com.dmz.api.member.domain.Member;
@@ -47,6 +48,9 @@ public class CommunityInsertRequest {
 
 	@Schema(type = "array", example = "[\"JAVA\", \"REACT\"]", description = "기술스택 목록")
 	private final List<Tech> techList = new ArrayList<>();
+
+	@Schema(type = "array", example = "[\"BACKEND\", \"FRONTEND\"]", description = "모집 포지션 목록")
+	private final List<Position> positionList = new ArrayList<>();
 
 	public static Community of(CommunityInsertRequest req , Member member) {
 		return Community.builder()
